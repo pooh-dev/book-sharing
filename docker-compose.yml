@@ -1,0 +1,7 @@
+version: "3"
+services:
+  app:
+    image: poohdev/book-sharing
+    container_name: 'book-sharing'
+    ports:
+    - '8080:8080'
