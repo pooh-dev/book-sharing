@@ -80,5 +80,5 @@ jobs:
           image: poohdev/book-sharing:latest
           registry-username: ${{ secrets.DOCKER_USER }}
           registry-password: ${{ secrets.DOCKER_PASS }}
-          name: book-sharing-container
+          name: book-sharing
           location: 'West Europe'
