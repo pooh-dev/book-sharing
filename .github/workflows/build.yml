@@ -78,6 +78,7 @@ jobs:
           resource-group: poohdev
           dns-name-label: book-sharing
           image: poohdev/book-sharing:latest
+          registry-login-server: index.docker.io
           registry-username: ${{ secrets.DOCKER_USER }}
           registry-password: ${{ secrets.DOCKER_PASS }}
           name: book-sharing
