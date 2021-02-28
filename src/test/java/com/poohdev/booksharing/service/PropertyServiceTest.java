@@ -10,7 +10,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 @SpringBootTest
 public class PropertyServiceTest {
 
-    private static final String NO_APPLICATION_NAME = "No Application Name xxx";
+    private static final String NO_APPLICATION_NAME = "No Application Name";
     private static final String APPLICATION_NAME = "Book Sharing Application";
 
     @Autowired
