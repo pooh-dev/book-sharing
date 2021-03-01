@@ -48,7 +48,7 @@ jobs:
       - name: Maven Package
         run: mvn -B clean compile package -DskipTests
       - name: Build Docker image
-        run: docker build -t $REPO:latest -t $REPO:${GITHUB_SHA::8} .
+        run: docker build -t $REPO:latest .
       - name: Login to Docker Hub
         run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASS }}
       - name: Publish Docker image
@@ -73,4 +73,4 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: book-sharing
-          images: poohdev/book-sharing:latest
+          images: ${{ secrets.DOCKER_REPO }}:latest
