@@ -75,4 +75,4 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: book-sharing
-          images: $REPO
+          images: $REPO:latest
