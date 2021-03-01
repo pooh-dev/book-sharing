@@ -68,14 +68,7 @@ jobs:
           login-server: index.docker.io
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PASS }}
-      - name: Deploy to Azure Container Instances
-        uses: azure/aci-deploy@v1
+      - uses: azure/webapps-deploy@v2
         with:
-          resource-group: poohdev
-          dns-name-label: book-sharing
-          image: poohdev/book-sharing:latest
-          registry-login-server: index.docker.io
-          registry-username: ${{ secrets.DOCKER_USER }}
-          registry-password: ${{ secrets.DOCKER_PASS }}
-          name: book-sharing
-          location: 'West Europe'
+          app-name: 'book-sharing'
+          images: 'poohdev/book-sharing:latest'
