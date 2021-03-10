@@ -3,6 +3,8 @@ package com.poohdev.booksharing.domain;
 import lombok.Data;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -15,10 +17,11 @@ import java.util.Set;
 @Table(name = "authors")
 public class Author {
     @Id
+    @GeneratedValue
     private Long id;
     private String fullName;
     private String about;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "authors_books",
             joinColumns = @JoinColumn(name = "authors_id"),
