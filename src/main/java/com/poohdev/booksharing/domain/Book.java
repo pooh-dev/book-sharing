@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -24,5 +25,5 @@ public class Book {
     private Integer numberOfPages;
     private Double price;
     @ManyToMany(mappedBy = "books", fetch = FetchType.LAZY)
-    private Set<Author> authors;
+    private Set<Author> authors = new HashSet<>();
 }

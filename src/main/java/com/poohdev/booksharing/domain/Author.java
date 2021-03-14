@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -27,5 +28,5 @@ public class Author {
             joinColumns = @JoinColumn(name = "authors_id"),
             inverseJoinColumns = @JoinColumn(name = "books_id")
     )
-    private Set<Book> books;
+    private Set<Book> books = new HashSet<>();
 }
