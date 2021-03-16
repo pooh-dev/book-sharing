@@ -1,6 +1,9 @@
 package com.poohdev.booksharing.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,18 +18,21 @@ import java.util.Set;
 
 @Entity
 @Data
+@ToString
+@EqualsAndHashCode(of = "id")
 @Table(name = "authors")
 public class Author {
     @Id
     @GeneratedValue
     private Long id;
+
     private String fullName;
+
     private String about;
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "authors_books",
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "authors_books",
             joinColumns = @JoinColumn(name = "authors_id"),
-            inverseJoinColumns = @JoinColumn(name = "books_id")
-    )
+            inverseJoinColumns = @JoinColumn(name = "books_id"))
     private Set<Book> books = new HashSet<>();
 }

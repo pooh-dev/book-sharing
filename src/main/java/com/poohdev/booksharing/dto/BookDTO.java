@@ -1,6 +1,5 @@
 package com.poohdev.booksharing.dto;
 
-import com.poohdev.booksharing.domain.Author;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,5 +15,5 @@ public class BookDTO {
     private String description;
     private Integer numberOfPages;
     private Double price;
-    private Set<Author> authors;
+    private Set<Long> authorIds;
 }
