@@ -1,5 +1,6 @@
 package com.poohdev.booksharing.facade;
 
+import com.poohdev.booksharing.converter.AuthorConverter;
 import com.poohdev.booksharing.dto.AuthorDTO;
 import com.poohdev.booksharing.service.AuthorService;
 import org.modelmapper.ModelMapper;
@@ -13,9 +14,10 @@ public class AuthorFacade {
     private final AuthorService authorService;
     private final ModelMapper modelMapper;
 
-    public AuthorFacade(AuthorService authorService, ModelMapper modelMapper) {
+    public AuthorFacade(AuthorService authorService, AuthorConverter authorConverter) {
         this.authorService = authorService;
-        this.modelMapper = modelMapper;
+        this.modelMapper = new ModelMapper();
+        this.modelMapper.addConverter(authorConverter);
     }
 
     public List<AuthorDTO> getAllAuthors() {
