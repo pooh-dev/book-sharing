@@ -25,4 +25,16 @@ public class AuthorFacade {
                 .map(author -> modelMapper.map(author, AuthorDTO.class))
                 .collect(Collectors.toList());
     }
+
+    public List<AuthorDTO> findAuthorByName(String name) {
+        return authorService.findByName(name).stream()
+                .map(author -> modelMapper.map(author, AuthorDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    public List<AuthorDTO> findAuthorByBookName(String bookName) {
+        return authorService.findByBookName(bookName).stream()
+                .map(author -> modelMapper.map(author, AuthorDTO.class))
+                .collect(Collectors.toList());
+    }
 }

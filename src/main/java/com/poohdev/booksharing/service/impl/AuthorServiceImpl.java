@@ -4,6 +4,7 @@ import com.poohdev.booksharing.domain.Author;
 import com.poohdev.booksharing.domain.Book;
 import com.poohdev.booksharing.repository.AuthorRepository;
 import com.poohdev.booksharing.service.AuthorService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,8 +32,8 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public List<Author> findByBookName(String bookName) {
-        Predicate<Author> containsBookName =
-                author -> author.getBooks().stream().anyMatch(book -> book.getName().contains(bookName));
+        Predicate<Author> containsBookName = author -> author.getBooks().stream()
+                .anyMatch(book -> StringUtils.containsIgnoreCase(book.getName(), bookName));
 
         return findAllAuthors().stream()
                 .filter(containsBookName)
