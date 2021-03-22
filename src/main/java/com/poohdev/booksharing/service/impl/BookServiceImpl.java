@@ -1,12 +1,13 @@
 package com.poohdev.booksharing.service.impl;
 
-import com.poohdev.booksharing.domain.Author;
 import com.poohdev.booksharing.domain.Book;
 import com.poohdev.booksharing.repository.BookRepository;
 import com.poohdev.booksharing.service.BookService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,6 +22,15 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<Book> findAllBooks() {
         return (List<Book>) bookRepository.findAll();
+    }
+
+    @Override
+    public Book findById(Long bookId) {
+        Optional<Book> optionalBook =  bookRepository.findById(bookId);
+        if (!optionalBook.isPresent()) {
+            throw new IllegalArgumentException("There is no book with given id.");
+        }
+        return optionalBook.get();
     }
 
     @Override
@@ -39,9 +49,12 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> findByAuthor(Author author) {
+    public List<Book> findByAuthor(Long authorId) {
+        Predicate<Book> isBookWrittenByAuthor =
+                book -> book.getAuthors().stream().anyMatch(author -> author.getId().equals(authorId));
+
         return findAllBooks().stream()
-                .filter(book -> book.getAuthors().contains(author))
+                .filter(isBookWrittenByAuthor)
                 .collect(Collectors.toList());
     }
 

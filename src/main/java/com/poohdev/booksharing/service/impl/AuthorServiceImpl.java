@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -23,6 +24,15 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public List<Author> findAllAuthors() {
         return (List<Author>) authorRepository.findAll();
+    }
+
+    @Override
+    public Author findById(Long authorId) {
+        Optional<Author> optionalAuthor = authorRepository.findById(authorId);
+        if (!optionalAuthor.isPresent()) {
+            throw new IllegalArgumentException("There is no Author with given id.");
+        }
+        return optionalAuthor.get();
     }
 
     @Override
@@ -51,11 +61,14 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public Author addBookToAuthor(Author author, Book book) {
-        boolean isBookAdded = author.getBooks().add(book);
-        if (isBookAdded) {
-            authorRepository.save(author);
+    public Author addBookToAuthor(Long authorId, Book book) {
+        Optional<Author> optionalAuthor = authorRepository.findById(authorId);
+        if (!optionalAuthor.isPresent()) {
+            throw new IllegalArgumentException("There is no Author with given id");
         }
-        return author;
+
+        Author author = optionalAuthor.get();
+        author.getBooks().add(book);
+        return authorRepository.save(author);
     }
 }

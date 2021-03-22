@@ -7,10 +7,11 @@ import java.util.List;
 
 public interface BookService {
     List<Book> findAllBooks();
+    Book findById(Long bookId);
     Book findByIsbn(String isbn);
     List<Book> findByName(String name);
     List<Book> findByPriceBetween(Double minPrice, Double maxPrice);
-    List<Book> findByAuthor(Author author);
+    List<Book> findByAuthor(Long authorId);
     Book createBook(Book book);
     void deleteBookById(Long bookId);
     Book changePrice(Book book, Double newPrice);

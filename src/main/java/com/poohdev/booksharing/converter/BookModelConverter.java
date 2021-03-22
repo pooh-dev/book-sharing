@@ -11,7 +11,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
-public class BookConverter implements Converter<Book, BookDTO> {
+public class BookModelConverter implements Converter<Book, BookDTO> {
     @Override
     public BookDTO convert(MappingContext<Book, BookDTO> context) {
         Book book = context.getSource();

@@ -7,9 +7,10 @@ import java.util.List;
 
 public interface AuthorService {
     List<Author> findAllAuthors();
+    Author findById(Long authorId);
     List<Author> findByName(String name);
     List<Author> findByBookName(String bookName);
     Author createAuthor(Author author);
     void deleteAuthorById(Long authorId);
-    Author addBookToAuthor(Author author, Book book);
+    Author addBookToAuthor(Long authorId, Book book);
 }

@@ -1,40 +1,15 @@
 package com.poohdev.booksharing.facade;
 
-import com.poohdev.booksharing.converter.AuthorConverter;
 import com.poohdev.booksharing.dto.AuthorDTO;
-import com.poohdev.booksharing.service.AuthorService;
-import org.modelmapper.ModelMapper;
-import org.springframework.stereotype.Service;
+import com.poohdev.booksharing.dto.BookDTO;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-@Service
-public class AuthorFacade {
-    private final AuthorService authorService;
-    private final ModelMapper modelMapper;
-
-    public AuthorFacade(AuthorService authorService, AuthorConverter authorConverter) {
-        this.authorService = authorService;
-        this.modelMapper = new ModelMapper();
-        this.modelMapper.addConverter(authorConverter);
-    }
-
-    public List<AuthorDTO> getAllAuthors() {
-        return authorService.findAllAuthors().stream()
-                .map(author -> modelMapper.map(author, AuthorDTO.class))
-                .collect(Collectors.toList());
-    }
-
-    public List<AuthorDTO> findAuthorByName(String name) {
-        return authorService.findByName(name).stream()
-                .map(author -> modelMapper.map(author, AuthorDTO.class))
-                .collect(Collectors.toList());
-    }
-
-    public List<AuthorDTO> findAuthorByBookName(String bookName) {
-        return authorService.findByBookName(bookName).stream()
-                .map(author -> modelMapper.map(author, AuthorDTO.class))
-                .collect(Collectors.toList());
-    }
+public interface AuthorFacade {
+    List<AuthorDTO> getAllAuthors();
+    List<AuthorDTO> findAuthorByName(String authorName);
+    List<AuthorDTO> findAuthorByBookName(String bookName);
+    AuthorDTO createAuthor(AuthorDTO author);
+    void deleteAuthor(Long authorId);
+    AuthorDTO addBookToAuthor(Long authorId, BookDTO bookDTO);
 }

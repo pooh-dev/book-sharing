@@ -11,7 +11,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
-public class AuthorConverter implements Converter<Author, AuthorDTO> {
+public class AuthorModelConverter implements Converter<Author, AuthorDTO> {
     @Override
     public AuthorDTO convert(MappingContext<Author, AuthorDTO> context) {
         Author author = context.getSource();
