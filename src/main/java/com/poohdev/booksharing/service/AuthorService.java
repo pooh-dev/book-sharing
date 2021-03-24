@@ -11,6 +11,7 @@ public interface AuthorService {
     List<Author> findByName(String name);
     List<Author> findByBookName(String bookName);
     Author createAuthor(Author author);
+    Author addBook(Long authorId, Book book);
+    Author deleteBook(Long authorId, Book book);
     void deleteAuthorById(Long authorId);
-    Author addBookToAuthor(Long authorId, Book book);
 }

@@ -4,6 +4,7 @@ import com.poohdev.booksharing.domain.Author;
 import com.poohdev.booksharing.domain.Book;
 import com.poohdev.booksharing.dto.BookDTO;
 import com.poohdev.booksharing.service.AuthorService;
+import org.apache.commons.collections4.CollectionUtils;
 import org.modelmapper.Converter;
 import org.modelmapper.spi.MappingContext;
 import org.springframework.stereotype.Component;
@@ -35,10 +36,12 @@ public class BookDtoConverter implements Converter<BookDTO, Book> {
         book.setNumberOfPages(bookDTO.getNumberOfPages());
         book.setPrice(bookDTO.getPrice());
 
-        Set<Author> authors = bookDTO.getAuthorIds().stream()
-                .map(authorService::findById)
-                .collect(Collectors.toSet());
-        book.setAuthors(authors);
+        if (CollectionUtils.isNotEmpty(bookDTO.getAuthorIds())) {
+            Set<Author> authors = bookDTO.getAuthorIds().stream()
+                    .map(authorService::findById)
+                    .collect(Collectors.toSet());
+            book.setAuthors(authors);
+        }
 
         return book;
     }

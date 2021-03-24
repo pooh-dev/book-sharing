@@ -28,11 +28,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public Author findById(Long authorId) {
-        Optional<Author> optionalAuthor = authorRepository.findById(authorId);
-        if (!optionalAuthor.isPresent()) {
-            throw new IllegalArgumentException("There is no Author with given id.");
-        }
-        return optionalAuthor.get();
+        return getAuthorById(authorId);
     }
 
     @Override
@@ -56,19 +52,29 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
+    public Author addBook(Long authorId, Book book) {
+        Author author = getAuthorById(authorId);
+        author.getBooks().add(book);
+        return authorRepository.save(author);
+    }
+
+    @Override
+    public Author deleteBook(Long authorId, Book book) {
+        Author author = getAuthorById(authorId);
+        author.getBooks().remove(book);
+        return authorRepository.save(author);
+    }
+
+    @Override
     public void deleteAuthorById(Long authorId) {
         authorRepository.deleteById(authorId);
     }
 
-    @Override
-    public Author addBookToAuthor(Long authorId, Book book) {
+    private Author getAuthorById(Long authorId) {
         Optional<Author> optionalAuthor = authorRepository.findById(authorId);
         if (!optionalAuthor.isPresent()) {
-            throw new IllegalArgumentException("There is no Author with given id");
+            throw new IllegalArgumentException("There is no Author with given id.");
         }
-
-        Author author = optionalAuthor.get();
-        author.getBooks().add(book);
-        return authorRepository.save(author);
+        return optionalAuthor.get();
     }
 }
