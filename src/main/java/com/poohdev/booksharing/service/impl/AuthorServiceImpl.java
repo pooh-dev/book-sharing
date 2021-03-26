@@ -47,7 +47,7 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public Author createAuthor(Author author) {
+    public Author createOrUpdateAuthor(Author author) {
         return authorRepository.save(author);
     }
 
@@ -59,7 +59,7 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public Author deleteBook(Long authorId, Book book) {
+    public Author removeBook(Long authorId, Book book) {
         Author author = getAuthorById(authorId);
         author.getBooks().remove(book);
         return authorRepository.save(author);

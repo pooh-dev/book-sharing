@@ -50,8 +50,18 @@ public class AuthorFacadeImpl implements AuthorFacade {
 
     @Override
     public AuthorDTO createAuthor(AuthorDTO authorDTO) {
-        Author author = authorService.createAuthor(modelMapper.map(authorDTO, Author.class));
-        return modelMapper.map(author, AuthorDTO.class);
+        if (authorDTO.getId() != null) {
+            throw new IllegalArgumentException("The field 'id' must not be existed by creating a new Author");
+        }
+        return createOrUpdateAuthor(authorDTO);
+    }
+
+    @Override
+    public AuthorDTO updateAuthor(AuthorDTO authorDTO) {
+        if (authorDTO.getId() == null) {
+            throw new IllegalArgumentException("The field 'id' is required");
+        }
+        return createOrUpdateAuthor(authorDTO);
     }
 
     @Override
@@ -67,9 +77,14 @@ public class AuthorFacadeImpl implements AuthorFacade {
     }
 
     @Override
-    public AuthorDTO deleteBookFromAuthor(Long authorId, Long bookId) {
+    public AuthorDTO removeBookFromAuthor(Long authorId, Long bookId) {
         Book book = bookService.findById(bookId);
-        Author author = authorService.deleteBook(authorId, book);
+        Author author = authorService.removeBook(authorId, book);
+        return modelMapper.map(author, AuthorDTO.class);
+    }
+
+    private AuthorDTO createOrUpdateAuthor(AuthorDTO authorDTO) {
+        Author author = authorService.createOrUpdateAuthor(modelMapper.map(authorDTO, Author.class));
         return modelMapper.map(author, AuthorDTO.class);
     }
 }
