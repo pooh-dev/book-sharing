@@ -26,6 +26,6 @@ public class BookController {
 
     @GetMapping("/books/author/{authorId}")
     public List<BookDTO> getBooksByAuthor(@PathVariable Long authorId) {
-        return bookFacade.getBooksByAuthor(authorId);
+        return bookFacade.findByAuthor(authorId);
     }
 }

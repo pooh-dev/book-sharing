@@ -44,7 +44,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> findByPriceBetween(Double minPrice, Double maxPrice) {
+    public List<Book> findByPriceRange(Double minPrice, Double maxPrice) {
         return bookRepository.findByPriceBetween(minPrice, maxPrice);
     }
 
@@ -59,24 +59,12 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book createBook(Book book) {
+    public Book createOrUpdateBook(Book book) {
         return bookRepository.save(book);
     }
 
     @Override
     public void deleteBookById(Long bookId) {
         bookRepository.deleteById(bookId);
-    }
-
-    @Override
-    public Book changePrice(Book book, Double newPrice) {
-        book.setPrice(newPrice);
-        return bookRepository.save(book);
-    }
-
-    @Override
-    public Book updateDescription(Book book, String newDescription) {
-        book.setDescription(newDescription);
-        return bookRepository.save(book);
     }
 }

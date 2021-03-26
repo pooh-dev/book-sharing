@@ -6,5 +6,11 @@ import java.util.List;
 
 public interface BookFacade {
     List<BookDTO> getAllBooks();
-    List<BookDTO> getBooksByAuthor(Long authorId);
+    BookDTO findByIsbn(String isbn);
+    List<BookDTO> findByAuthor(Long authorId);
+    List<BookDTO> findByName(String name);
+    List<BookDTO> findByPriceRange(Double minPrice, Double maxPrice);
+    BookDTO createBook(BookDTO bookDTO);
+    BookDTO updateBook(BookDTO bookDTO);
+    void deleteBook(Long bookId);
 }
