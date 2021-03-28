@@ -9,8 +9,7 @@ public interface AuthorFacade {
     List<AuthorDTO> findAuthorByName(String authorName);
     List<AuthorDTO> findAuthorByBookName(String bookName);
     AuthorDTO createAuthor(AuthorDTO author);
-    AuthorDTO updateAuthor(AuthorDTO author);
-    void deleteAuthor(Long authorId);
     AuthorDTO addBookToAuthor(Long authorId, Long bookId);
     AuthorDTO removeBookFromAuthor(Long authorId, Long bookId);
+    void deleteAuthor(Long authorId);
 }

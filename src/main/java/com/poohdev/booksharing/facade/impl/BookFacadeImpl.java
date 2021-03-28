@@ -55,27 +55,26 @@ public class BookFacadeImpl implements BookFacade {
 
     @Override
     public BookDTO createBook(BookDTO bookDTO) {
-        if (bookDTO.getId() != null) {
-            throw new IllegalArgumentException("The field 'id' must not be existed by creating a new Book");
-        }
-        return createOrUpdateBook(bookDTO);
+        Book book = bookService.createOrUpdateBook(modelMapper.map(bookDTO, Book.class));
+        return modelMapper.map(book, BookDTO.class);
     }
 
     @Override
-    public BookDTO updateBook(BookDTO bookDTO) {
-        if (bookDTO.getId() == null) {
-            throw new IllegalArgumentException("The field 'id' is required.");
-        }
-        return createOrUpdateBook(bookDTO);
+    public BookDTO updateDescription(BookDTO bookDTO) {
+        Book book = bookService.findById(bookDTO.getId());
+        book.setDescription(bookDTO.getDescription());
+        return modelMapper.map(bookService.createOrUpdateBook(book), BookDTO.class);
+    }
+
+    @Override
+    public BookDTO changePrice(BookDTO bookDTO) {
+        Book book = bookService.findById(bookDTO.getId());
+        book.setPrice(bookDTO.getPrice());
+        return modelMapper.map(bookService.createOrUpdateBook(book), BookDTO.class);
     }
 
     @Override
     public void deleteBook(Long bookId) {
         bookService.deleteBookById(bookId);
-    }
-
-    private BookDTO createOrUpdateBook(BookDTO bookDTO) {
-        Book book = bookService.createOrUpdateBook(modelMapper.map(bookDTO, Book.class));
-        return modelMapper.map(book, BookDTO.class);
     }
 }

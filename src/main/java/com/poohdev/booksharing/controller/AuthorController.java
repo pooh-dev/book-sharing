@@ -43,18 +43,13 @@ public class AuthorController {
         return authorFacade.createAuthor(author);
     }
 
-    @PutMapping
-    public AuthorDTO updateAuthor(@RequestBody AuthorDTO author) {
-        return authorFacade.updateAuthor(author);
-    }
-
     @PutMapping("/{authorId}/addBook/{bookId}")
     public AuthorDTO addBook(@PathVariable Long authorId, @PathVariable Long bookId) {
         return authorFacade.addBookToAuthor(authorId, bookId);
     }
 
-    @PutMapping("/{authorId}/deleteBook/{bookId}")
-    public AuthorDTO deleteBook(@PathVariable Long authorId, @PathVariable Long bookId) {
+    @PutMapping("/{authorId}/removeBook/{bookId}")
+    public AuthorDTO removeBook(@PathVariable Long authorId, @PathVariable Long bookId) {
         return authorFacade.removeBookFromAuthor(authorId, bookId);
     }
 

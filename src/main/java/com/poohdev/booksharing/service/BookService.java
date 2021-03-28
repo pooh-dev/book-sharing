@@ -1,6 +1,5 @@
 package com.poohdev.booksharing.service;
 
-import com.poohdev.booksharing.domain.Author;
 import com.poohdev.booksharing.domain.Book;
 
 import java.util.List;

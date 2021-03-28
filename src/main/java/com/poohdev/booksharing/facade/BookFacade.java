@@ -11,6 +11,7 @@ public interface BookFacade {
     List<BookDTO> findByName(String name);
     List<BookDTO> findByPriceRange(Double minPrice, Double maxPrice);
     BookDTO createBook(BookDTO bookDTO);
-    BookDTO updateBook(BookDTO bookDTO);
+    BookDTO updateDescription(BookDTO bookDTO);
+    BookDTO changePrice(BookDTO bookDTO);
     void deleteBook(Long bookId);
 }
