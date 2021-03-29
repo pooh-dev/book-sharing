@@ -2,6 +2,8 @@ package com.poohdev.booksharing.controller;
 
 import com.poohdev.booksharing.dto.AuthorDTO;
 import com.poohdev.booksharing.facade.impl.AuthorFacadeImpl;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,33 +26,33 @@ public class AuthorController {
     }
 
     @GetMapping
-    public List<AuthorDTO> getAllAuthors() {
-        return authorFacade.getAllAuthors();
+    public ResponseEntity<List<AuthorDTO>> getAllAuthors() {
+        return new ResponseEntity<>(authorFacade.getAllAuthors(), HttpStatus.OK);
     }
 
     @GetMapping("/{name}")
-    public List<AuthorDTO> findAuthorByName(@PathVariable String name) {
-        return authorFacade.findAuthorByName(name);
+    public ResponseEntity<List<AuthorDTO>> findAuthorByName(@PathVariable String name) {
+        return new ResponseEntity<>(authorFacade.findAuthorByName(name), HttpStatus.OK);
     }
 
     @GetMapping("/book/{bookName}")
-    public List<AuthorDTO> findAuthorByBookName(@PathVariable String bookName) {
-        return authorFacade.findAuthorByBookName(bookName);
+    public ResponseEntity<List<AuthorDTO>> findAuthorByBookName(@PathVariable String bookName) {
+        return new ResponseEntity<>(authorFacade.findAuthorByBookName(bookName), HttpStatus.OK);
     }
 
     @PostMapping
-    public AuthorDTO createAuthor(@RequestBody AuthorDTO author) {
-        return authorFacade.createAuthor(author);
+    public ResponseEntity<AuthorDTO> createAuthor(@RequestBody AuthorDTO author) {
+        return new ResponseEntity<>(authorFacade.createAuthor(author), HttpStatus.OK);
     }
 
     @PutMapping("/{authorId}/addBook/{bookId}")
-    public AuthorDTO addBook(@PathVariable Long authorId, @PathVariable Long bookId) {
-        return authorFacade.addBookToAuthor(authorId, bookId);
+    public ResponseEntity<AuthorDTO> addBook(@PathVariable Long authorId, @PathVariable Long bookId) {
+        return new ResponseEntity<>(authorFacade.addBookToAuthor(authorId, bookId), HttpStatus.OK);
     }
 
     @PutMapping("/{authorId}/removeBook/{bookId}")
-    public AuthorDTO removeBook(@PathVariable Long authorId, @PathVariable Long bookId) {
-        return authorFacade.removeBookFromAuthor(authorId, bookId);
+    public ResponseEntity<AuthorDTO> removeBook(@PathVariable Long authorId, @PathVariable Long bookId) {
+        return new ResponseEntity<>(authorFacade.removeBookFromAuthor(authorId, bookId), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

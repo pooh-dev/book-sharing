@@ -2,6 +2,8 @@ package com.poohdev.booksharing.controller;
 
 import com.poohdev.booksharing.dto.BookDTO;
 import com.poohdev.booksharing.facade.impl.BookFacadeImpl;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,43 +27,43 @@ public class BookController {
     }
 
     @GetMapping
-    public List<BookDTO> getAllBooks() {
-        return bookFacade.getAllBooks();
+    public ResponseEntity<List<BookDTO>> getAllBooks() {
+        return new ResponseEntity<>(bookFacade.getAllBooks(), HttpStatus.OK);
     }
 
     @GetMapping("/author/{authorId}")
-    public List<BookDTO> getBooksByAuthor(@PathVariable Long authorId) {
-        return bookFacade.findByAuthor(authorId);
+    public ResponseEntity<List<BookDTO>> getBooksByAuthor(@PathVariable Long authorId) {
+        return new ResponseEntity<>(bookFacade.findByAuthor(authorId), HttpStatus.OK);
     }
 
     @GetMapping("/name/{bookName}")
-    public List<BookDTO> getBooksByName(@PathVariable String bookName) {
-        return bookFacade.findByName(bookName);
+    public ResponseEntity<List<BookDTO>> getBooksByName(@PathVariable String bookName) {
+        return new ResponseEntity<>(bookFacade.findByName(bookName), HttpStatus.OK);
     }
 
     @GetMapping("/isbn/{isbn}")
-    public BookDTO getBookByIsbn(@PathVariable String isbn) {
-        return bookFacade.findByIsbn(isbn);
+    public ResponseEntity<BookDTO> getBookByIsbn(@PathVariable String isbn) {
+        return new ResponseEntity<>(bookFacade.findByIsbn(isbn), HttpStatus.OK);
     }
 
     @GetMapping("/price")
-    public List<BookDTO> getBooksByPriceRange(@RequestParam Double min, @RequestParam Double max) {
-        return bookFacade.findByPriceRange(min, max);
+    public ResponseEntity<List<BookDTO>> getBooksByPriceRange(@RequestParam Double min, @RequestParam Double max) {
+        return new ResponseEntity<>(bookFacade.findByPriceRange(min, max), HttpStatus.OK);
     }
 
     @PostMapping
-    public BookDTO createBook(@RequestBody BookDTO bookDTO) {
-        return bookFacade.createBook(bookDTO);
+    public ResponseEntity<BookDTO> createBook(@RequestBody BookDTO bookDTO) {
+        return new ResponseEntity<>(bookFacade.createBook(bookDTO), HttpStatus.OK);
     }
 
     @PutMapping("/description")
-    public BookDTO updateDescription(@RequestBody BookDTO bookDTO) {
-        return bookFacade.updateDescription(bookDTO);
+    public ResponseEntity<BookDTO> updateDescription(@RequestBody BookDTO bookDTO) {
+        return new ResponseEntity<>(bookFacade.updateDescription(bookDTO), HttpStatus.OK);
     }
 
     @PutMapping("/price")
-    public BookDTO changePrice(@RequestBody BookDTO bookDTO) {
-        return bookFacade.changePrice(bookDTO);
+    public ResponseEntity<BookDTO> changePrice(@RequestBody BookDTO bookDTO) {
+        return new ResponseEntity<>(bookFacade.changePrice(bookDTO), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
