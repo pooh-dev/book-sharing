@@ -1,9 +1,8 @@
 package com.poohdev.booksharing.controller;
 
 import com.poohdev.booksharing.dto.AuthorDTO;
+import com.poohdev.booksharing.dto.NewAuthorDTO;
 import com.poohdev.booksharing.facade.impl.AuthorFacadeImpl;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -26,33 +26,33 @@ public class AuthorController {
     }
 
     @GetMapping
-    public ResponseEntity<List<AuthorDTO>> getAllAuthors() {
-        return new ResponseEntity<>(authorFacade.getAllAuthors(), HttpStatus.OK);
+    public List<AuthorDTO> getAllAuthors() {
+        return (authorFacade.getAllAuthors());
     }
 
     @GetMapping("/{name}")
-    public ResponseEntity<List<AuthorDTO>> findAuthorByName(@PathVariable String name) {
-        return new ResponseEntity<>(authorFacade.findAuthorByName(name), HttpStatus.OK);
+    public List<AuthorDTO> findAuthorByName(@PathVariable String name) {
+        return authorFacade.findAuthorByName(name);
     }
 
     @GetMapping("/book/{bookName}")
-    public ResponseEntity<List<AuthorDTO>> findAuthorByBookName(@PathVariable String bookName) {
-        return new ResponseEntity<>(authorFacade.findAuthorByBookName(bookName), HttpStatus.OK);
+    public List<AuthorDTO> findAuthorByBookName(@PathVariable String bookName) {
+        return authorFacade.findAuthorByBookName(bookName);
     }
 
     @PostMapping
-    public ResponseEntity<AuthorDTO> createAuthor(@RequestBody AuthorDTO author) {
-        return new ResponseEntity<>(authorFacade.createAuthor(author), HttpStatus.OK);
+    public AuthorDTO createAuthor(@RequestBody @Valid NewAuthorDTO author) {
+        return authorFacade.createAuthor(author);
     }
 
     @PutMapping("/{authorId}/addBook/{bookId}")
-    public ResponseEntity<AuthorDTO> addBook(@PathVariable Long authorId, @PathVariable Long bookId) {
-        return new ResponseEntity<>(authorFacade.addBookToAuthor(authorId, bookId), HttpStatus.OK);
+    public AuthorDTO addBook(@PathVariable Long authorId, @PathVariable Long bookId) {
+        return authorFacade.addBookToAuthor(authorId, bookId);
     }
 
     @PutMapping("/{authorId}/removeBook/{bookId}")
-    public ResponseEntity<AuthorDTO> removeBook(@PathVariable Long authorId, @PathVariable Long bookId) {
-        return new ResponseEntity<>(authorFacade.removeBookFromAuthor(authorId, bookId), HttpStatus.OK);
+    public AuthorDTO removeBook(@PathVariable Long authorId, @PathVariable Long bookId) {
+        return authorFacade.removeBookFromAuthor(authorId, bookId);
     }
 
     @DeleteMapping("/{id}")

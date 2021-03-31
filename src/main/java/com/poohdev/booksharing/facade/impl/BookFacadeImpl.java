@@ -2,6 +2,9 @@ package com.poohdev.booksharing.facade.impl;
 
 import com.poohdev.booksharing.domain.Book;
 import com.poohdev.booksharing.dto.BookDTO;
+import com.poohdev.booksharing.dto.NewBookDTO;
+import com.poohdev.booksharing.dto.UpdateBookDescriptionDTO;
+import com.poohdev.booksharing.dto.UpdateBookPriceDTO;
 import com.poohdev.booksharing.facade.BookFacade;
 import com.poohdev.booksharing.service.BookService;
 import com.poohdev.booksharing.utils.BookSharingModelMapper;
@@ -54,20 +57,20 @@ public class BookFacadeImpl implements BookFacade {
     }
 
     @Override
-    public BookDTO createBook(BookDTO bookDTO) {
+    public BookDTO createBook(NewBookDTO bookDTO) {
         Book book = bookService.createOrUpdateBook(modelMapper.map(bookDTO, Book.class));
         return modelMapper.map(book, BookDTO.class);
     }
 
     @Override
-    public BookDTO updateDescription(BookDTO bookDTO) {
+    public BookDTO updateDescription(UpdateBookDescriptionDTO bookDTO) {
         Book book = bookService.findById(bookDTO.getId());
         book.setDescription(bookDTO.getDescription());
         return modelMapper.map(bookService.createOrUpdateBook(book), BookDTO.class);
     }
 
     @Override
-    public BookDTO changePrice(BookDTO bookDTO) {
+    public BookDTO changePrice(UpdateBookPriceDTO bookDTO) {
         Book book = bookService.findById(bookDTO.getId());
         book.setPrice(bookDTO.getPrice());
         return modelMapper.map(bookService.createOrUpdateBook(book), BookDTO.class);

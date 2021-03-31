@@ -3,6 +3,7 @@ package com.poohdev.booksharing.facade.impl;
 import com.poohdev.booksharing.domain.Author;
 import com.poohdev.booksharing.domain.Book;
 import com.poohdev.booksharing.dto.AuthorDTO;
+import com.poohdev.booksharing.dto.NewAuthorDTO;
 import com.poohdev.booksharing.facade.AuthorFacade;
 import com.poohdev.booksharing.service.AuthorService;
 import com.poohdev.booksharing.service.BookService;
@@ -49,7 +50,7 @@ public class AuthorFacadeImpl implements AuthorFacade {
     }
 
     @Override
-    public AuthorDTO createAuthor(AuthorDTO authorDTO) {
+    public AuthorDTO createAuthor(NewAuthorDTO authorDTO) {
         Author author = authorService.createOrUpdateAuthor(modelMapper.map(authorDTO, Author.class));
         return modelMapper.map(author, AuthorDTO.class);
     }

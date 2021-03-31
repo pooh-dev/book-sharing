@@ -1,9 +1,10 @@
 package com.poohdev.booksharing.controller;
 
 import com.poohdev.booksharing.dto.BookDTO;
+import com.poohdev.booksharing.dto.NewBookDTO;
+import com.poohdev.booksharing.dto.UpdateBookDescriptionDTO;
+import com.poohdev.booksharing.dto.UpdateBookPriceDTO;
 import com.poohdev.booksharing.facade.impl.BookFacadeImpl;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -27,43 +29,43 @@ public class BookController {
     }
 
     @GetMapping
-    public ResponseEntity<List<BookDTO>> getAllBooks() {
-        return new ResponseEntity<>(bookFacade.getAllBooks(), HttpStatus.OK);
+    public List<BookDTO> getAllBooks() {
+        return bookFacade.getAllBooks();
     }
 
     @GetMapping("/author/{authorId}")
-    public ResponseEntity<List<BookDTO>> getBooksByAuthor(@PathVariable Long authorId) {
-        return new ResponseEntity<>(bookFacade.findByAuthor(authorId), HttpStatus.OK);
+    public List<BookDTO> getBooksByAuthor(@PathVariable Long authorId) {
+        return bookFacade.findByAuthor(authorId);
     }
 
     @GetMapping("/name/{bookName}")
-    public ResponseEntity<List<BookDTO>> getBooksByName(@PathVariable String bookName) {
-        return new ResponseEntity<>(bookFacade.findByName(bookName), HttpStatus.OK);
+    public List<BookDTO> getBooksByName(@PathVariable String bookName) {
+        return bookFacade.findByName(bookName);
     }
 
     @GetMapping("/isbn/{isbn}")
-    public ResponseEntity<BookDTO> getBookByIsbn(@PathVariable String isbn) {
-        return new ResponseEntity<>(bookFacade.findByIsbn(isbn), HttpStatus.OK);
+    public BookDTO getBookByIsbn(@PathVariable String isbn) {
+        return bookFacade.findByIsbn(isbn);
     }
 
     @GetMapping("/price")
-    public ResponseEntity<List<BookDTO>> getBooksByPriceRange(@RequestParam Double min, @RequestParam Double max) {
-        return new ResponseEntity<>(bookFacade.findByPriceRange(min, max), HttpStatus.OK);
+    public List<BookDTO> getBooksByPriceRange(@RequestParam Double min, @RequestParam Double max) {
+        return bookFacade.findByPriceRange(min, max);
     }
 
     @PostMapping
-    public ResponseEntity<BookDTO> createBook(@RequestBody BookDTO bookDTO) {
-        return new ResponseEntity<>(bookFacade.createBook(bookDTO), HttpStatus.OK);
+    public BookDTO createBook(@RequestBody @Valid NewBookDTO bookDTO) {
+        return bookFacade.createBook(bookDTO);
     }
 
     @PutMapping("/description")
-    public ResponseEntity<BookDTO> updateDescription(@RequestBody BookDTO bookDTO) {
-        return new ResponseEntity<>(bookFacade.updateDescription(bookDTO), HttpStatus.OK);
+    public BookDTO updateDescription(@RequestBody @Valid UpdateBookDescriptionDTO bookDTO) {
+        return bookFacade.updateDescription(bookDTO);
     }
 
     @PutMapping("/price")
-    public ResponseEntity<BookDTO> changePrice(@RequestBody BookDTO bookDTO) {
-        return new ResponseEntity<>(bookFacade.changePrice(bookDTO), HttpStatus.OK);
+    public BookDTO changePrice(@RequestBody @Valid UpdateBookPriceDTO bookDTO) {
+        return bookFacade.changePrice(bookDTO);
     }
 
     @DeleteMapping("/{id}")
